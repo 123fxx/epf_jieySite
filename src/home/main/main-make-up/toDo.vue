@@ -62,21 +62,26 @@
           <proportion></proportion>
         </div>
       </div>
-    </div> -->
+    </div>-->
     <div class="guide w">
-
+      <div class="business">
+        <div
+          @mouseover="businessover(item,index)"
+          @mouseout="businessout(item,index)"
+          v-for="(item,index) in businessData"
+          :key="index"
+        >
+          <a :href="item.jump" target="_blank">
+            <img :src="item.url" alt />
+          </a>
+        </div>
+      </div>
       <div class="guide_bd">
         <div class="guide_bdleft">
-          <img src="@/assets/image/home/mapLeft.png"
-               alt="">
+          <img src="@/assets/image/home/mapLeft.png" alt />
         </div>
-        <div class="guide_bdright"
-             @click="toMap">
-
-          <img src="@/assets/image/home/map.jpg"
-               style="width:100%;height:240px"
-               alt />
-
+        <div class="guide_bdright" @click="toMap">
+          <img src="@/assets/image/home/map.jpg" style="width:100%;height:240px" alt />
         </div>
       </div>
     </div>
@@ -91,7 +96,7 @@ export default {
     trends,
     proportion,
   },
-  data () {
+  data() {
     return {
       toToData: [
         {
@@ -126,30 +131,53 @@ export default {
         increment_price_sum: 0,
       },
       year: "2020",
+      businessData: [
+        {
+          name: "互认平台登录",
+          url: require("@/assets/image/home/business1.png"),
+          jump: "https://platform.gdggzy.org.cn:8443/sso/login",
+        },
+        {
+          name: "中介服务平台",
+          url: require("@/assets/image/home/business2.png"),
+          jump: "https://zjcs.gdggzy.org.cn/gd-zjcs-pub/home",
+        },
+        {
+          name: "广东政务服务网",
+          url: require("@/assets/image/home/business3.png"),
+          jump: "http://www.gdzwfw.gov.cn/portal/index",
+        },
+      ],
     };
   },
-  mounted () { },
-  created () {
+  mounted() {},
+  created() {
     let date = new Date();
     this.year = date.getFullYear();
     this.toDoQuery();
   },
   methods: {
-    toMap () {
-      this.$router.push('cityMap')
+    toMap() {
+      this.$router.push("cityMap");
     },
-    over (item, index) {
+    over(item, index) {
       let num = index + 1;
       item.url = require("@/assets/image/home/todo" + num + "B.png");
     },
-    out (item, index) {
+    out(item, index) {
       let num = index + 1;
       item.url = require("@/assets/image/home/todo" + num + ".png");
     },
+    businessover(item, index) {
+      let num = index + 1;
+      item.url = require("@/assets/image/home/business" + num + "B.png");
+    },
+    businessout(item, index) {
+      let num = index + 1;
+      item.url = require("@/assets/image/home/business" + num + ".png");
+    },
 
-    jump (item) {
-
-
+    jump(item) {
       let params = {
         path: "/notice",
         query: {
@@ -162,7 +190,7 @@ export default {
       this.$store.commit("add_tabs", params);
       this.$router.push(params);
     },
-    toDoQuery () {
+    toDoQuery() {
       this.$axios
         .get("/api/ords/epfcms/trade/queryTradeTransData")
         .then((res) => {
@@ -312,5 +340,15 @@ i {
   margin-left: 19px;
   background-color: #f7f8fb;
 }
-/* 尾部开始 */
+.business {
+  display: flex;
+}
+.business div {
+  margin-right: 15px;
+  cursor: pointer;
+}
+.business img {
+  width: 390px;
+  height: 120px;
+}
 </style>

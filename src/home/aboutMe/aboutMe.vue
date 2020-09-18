@@ -17,11 +17,9 @@
           <p>（九）建立公共资源现场交易信用和纪律档案；收集、存储和发布公共资源交易信息；见证公共资源进场交易全过程，确认交易结果；整理、保存交易过程中的相关资料备查。</p>
           <p>（十）组织协调有关部门对全市公共资源交易活动进行监管，协助处理公共资源交易投诉。</p>
           <p>（十一）承办上级部门交办的其他各项任务。</p>
-          <p>（十二）组织协调有关部门对全市公共资源交易活动进行监管，协助处理公共资源交易投诉。</p>
-          <p>（十三）承办上级部门交办的其他各项任务。</p>
         </div>
       </div>
-      <div class="my-phone">
+      <!-- <div class="my-phone">
         <div class="title">
           揭阳市公共资源电子交易平台
         </div>
@@ -34,8 +32,8 @@
              :key="index">
           <span>{{item.name}}：</span>
           <span>{{item.value}}</span>
-        </div>
-        <!-- 
+      </div>-->
+      <!-- 
         <div>
           <span>综合部：</span>
           <span>0663-1234567</span>
@@ -63,39 +61,36 @@
         <div>
           <span>土地及矿业权部：</span>
           <span>0663-1234567</span>
-        </div> -->
+      </div>-->
 
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      data: {}
-    }
+      data: {},
+    };
   },
   methods: {
-    getData (type) {
-
-      this.$get(
-        '/ords/epfcms/param/queryParamAllByNo/' + type,
-        {}
-      ).then(res => {
-        if (!res) {
-          return
+    getData(type) {
+      this.$get("/ords/epfcms/param/queryParamAllByNo/" + type, {}).then(
+        (res) => {
+          if (!res) {
+            return;
+          }
+          this.data = res[0];
         }
-        this.data = res[0]
-
-      })
+      );
     },
   },
-  created () {
-    this.getData('contactCenterTelConfig')
-  }
-}
+  created() {
+    this.getData("contactCenterTelConfig");
+  },
+};
 </script>
 
 <style scoped>
@@ -104,11 +99,12 @@ export default {
   color: #656565;
 }
 .my-info {
-  width: 800px;
+  /* width: 800px; */
   height: 630px;
   border: 1px solid rgba(229, 229, 229, 1);
   padding: 19px;
   line-height: 26px;
+  border-top: 2px solid #3854b8;
 }
 .my-phone {
   width: 380px;

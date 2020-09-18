@@ -2,129 +2,192 @@
   <div class="notice">
     <div class="area">
       <!-- <epf-nav></epf-nav> -->
-      <div class="notice-contain display"
-           v-loading="load">
+      <div class="notice-contain display" v-loading="load">
         <div class="notice-left">
-          <div class="notice-left-one  "
-               v-for="(item,index) in list"
-               :key="index"
-               :class="{'active':item.query.id===active}"
-               @click="listClick(item)">
+          <div
+            class="notice-left-one"
+            v-for="(item,index) in list"
+            :key="index"
+            :class="{'active':item.query.id===active}"
+            @click="listClick(item)"
+          >
             <div class="blue display align justify">
-              <span>
-                {{item.query.name}}
-              </span>
-              <span class="icon"
-                    :class="item.query.id===active?'el-icon-caret-right':''">
-              </span>
+              <span>{{item.query.name}}</span>
+              <span class="icon" :class="item.query.id===active?'el-icon-caret-right':''"></span>
             </div>
           </div>
         </div>
         <div class="notice-right">
           <router-view></router-view>
-
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  data () {
+  data() {
     return {
-      index: '',
-      list: [
-
-      ],
-      active: '',
-      notice: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {},],
-      load: false
-    }
+      index: "",
+      list: [],
+      active: "",
+      notice: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+      load: false,
+    };
   },
   methods: {
-
-    getTabs () {
-      this.active = this.$route.query.id
+    getTabs() {
+      this.active = this.$route.query.id;
       switch (this.index) {
-        case '1':
+        case "1":
           this.list = [
-            { path: '/notice', query: { index: 1, id: '007002', name: '政府采购' } },
-            { path: '/notice', query: { index: 1, id: '007003', name: '建设工程' } },
-            { path: '/notice', query: { index: 1, id: '007004', name: '土地及矿业权' } },
-            { path: '/notice', query: { index: 1, id: '007005', name: '国有产权' } }]
+            {
+              path: "/notice",
+              query: { index: 1, id: "007002", name: "政府采购" },
+            },
+            {
+              path: "/notice",
+              query: { index: 1, id: "007003", name: "建设工程" },
+            },
+            {
+              path: "/notice",
+              query: { index: 1, id: "007004", name: "土地及矿业权" },
+            },
+            {
+              path: "/notice",
+              query: { index: 1, id: "007005", name: "国有产权" },
+            },
+          ];
           break;
-        case '2':
-
+        case "2":
           this.list = [
-            { path: '/notice', query: { index: 2, id: '002001', name: '中心简介' } },
-            { path: '/notice', query: { index: 2, id: '002003', name: '机构设置' } },
-            { path: '/notice', query: { index: 2, id: '002005', name: '规章制度' } },
-            { path: '/notice', query: { index: 2, id: '002008', name: '预决算公开' } }]
-
+            {
+              path: "/notice",
+              query: { index: 2, id: "002001", name: "中心简介" },
+            },
+            {
+              path: "/notice",
+              query: { index: 2, id: "002003", name: "机构设置" },
+            },
+            {
+              path: "/notice",
+              query: { index: 2, id: "002005", name: "规章制度" },
+            },
+            {
+              path: "/notice",
+              query: { index: 2, id: "002008", name: "预决算公开" },
+            },
+          ];
 
           break;
-        case '3':
-
+        case "3":
           this.list = [
-            { path: '/notice', query: { index: 3, id: '007002', name: '政府采购' } },
-            { path: '/notice', query: { index: 3, id: '007003', name: '建设工程' } },
-            { path: '/notice', query: { index: 3, id: '007004', name: '土地及矿业权' } },
-            { path: '/notice', query: { index: 3, id: '007005', name: '国有产权' } },
-
-            { path: '/notice', query: { index: 3, id: '008005', name: '数字证书' } },
-
-          ]
-
-
-
-          break;
-        case '4':
-          this.list = [
-            { path: '/notice', query: { index: 4, id: '015001', name: '政府采购' } },
-            { path: '/notice', query: { index: 4, id: '015002', name: '建设工程' } },
-            { path: '/notice', query: { index: 4, id: '015003', name: '土地及矿业权' } },
-            { path: '/notice', query: { index: 4, id: '015004', name: '国有产权' } }]
-          break;
-        case '5':
-          this.list = [
-            { path: '/notice', query: { index: 5, id: '001002', name: '通知公告' } },
-            { path: '/notice', query: { index: 5, id: '001003', name: '中心动态' } },
-            { path: '/notice', query: { index: 5, id: '001005', name: '政声传递' } }]
-          break;
-
-        case '6':
-
-          this.list = [
-            { path: '/notice', query: { index: 6, id: '008', name: '服务指南', eng: 'FWZN' } },
-            { path: '/notice', query: { index: 6, id: '016', name: '交易流程', eng: 'JYLC' } },
-            { path: '/notice', query: { index: 6, id: '000004', name: '业务咨询' } },
-            { path: '/notice', query: { index: 6, id: '000005', name: '投诉举报' } }]
+            {
+              path: "/notice",
+              query: { index: 6, id: "008", name: "操作指南", eng: "FWZN" },
+            },
+            {
+              path: "/notice",
+              query: { index: 6, id: "016", name: "交易流程", eng: "JYLC" },
+            },
+          ];
           // this.list = [{ name: '服务指南', path: '/notice?index=6' }, { name: '交易流程', path: '/notice?index=6' }, { name: '业务咨询', path: '/notice?index=6' }, { name: '投诉举报', path: '/notice?index=6' }]
 
+          break;
+        case "4":
+          this.list = [
+            {
+              path: "/notice",
+              query: { index: 6, id: "000004", name: "业务咨询" },
+            },
+            {
+              path: "/notice",
+              query: { index: 6, id: "000005", name: "投诉举报" },
+            },
+          ];
 
           break;
-        case '7':
-          this.list = [{ name: '通知公告', path: '/notice?index=7', id: '001003' }, { name: '中心动态', path: '/notice?index=7', id: '001002' }, { name: '业务咨询', path: '/notice?index=6', id: '001005' }]
+        case "before11":
+          this.list = [
+            {
+              path: "/notice",
+              query: { index: 3, id: "007002", name: "政府采购" },
+            },
+            {
+              path: "/notice",
+              query: { index: 3, id: "007003", name: "建设工程" },
+            },
+            {
+              path: "/notice",
+              query: { index: 3, id: "007004", name: "土地及矿业权" },
+            },
+            {
+              path: "/notice",
+              query: { index: 3, id: "007005", name: "国有产权" },
+            },
+
+            {
+              path: "/notice",
+              query: { index: 3, id: "008005", name: "数字证书" },
+            },
+          ];
+
+          break;
+        case "before12":
+          this.list = [
+            {
+              path: "/notice",
+              query: { index: 4, id: "015001", name: "政府采购" },
+            },
+            {
+              path: "/notice",
+              query: { index: 4, id: "015002", name: "建设工程" },
+            },
+            {
+              path: "/notice",
+              query: { index: 4, id: "015003", name: "土地及矿业权" },
+            },
+            {
+              path: "/notice",
+              query: { index: 4, id: "015004", name: "国有产权" },
+            },
+          ];
+          break;
+        case "before13":
+          this.list = [
+            {
+              path: "/notice",
+              query: { index: 5, id: "001002", name: "通知公告" },
+            },
+            {
+              path: "/notice",
+              query: { index: 5, id: "001003", name: "中心动态" },
+            },
+            {
+              path: "/notice",
+              query: { index: 5, id: "001005", name: "政声传递" },
+            },
+          ];
           break;
 
-
+        case "7":
+          this.list = [
+            { name: "通知公告", path: "/notice?index=7", id: "001003" },
+            { name: "中心动态", path: "/notice?index=7", id: "001002" },
+            { name: "业务咨询", path: "/notice?index=6", id: "001005" },
+          ];
+          break;
       }
     },
-    listClick (item) {
-
-
-
-      this.active = item.query.id
-      this.$router.push({ path: '/notice', query: item.query })
-
+    listClick(item) {
+      this.active = item.query.id;
+      this.$router.push({ path: "/notice", query: item.query });
 
       // switch (this.index) {
       //   case '1':
 
-      //     
+      //
 
       //   case '2':
 
@@ -147,7 +210,6 @@ export default {
       //     this.$router.push({ path: '/notice', query: query })
       //     break;
       // }
-
     },
     // toDetail (item) {
 
@@ -160,29 +222,21 @@ export default {
     //   }
     //   this.$router.push(params)
     // },
-
   },
-  created () {
+  created() {
+    let query = this.$route.query;
 
-    let query = this.$route.query
-
-
-    this.index = query.index
-    this.getTabs()
-
-
-
+    this.index = query.index;
+    this.getTabs();
   },
-  components: {
-
-  },
+  components: {},
   watch: {
-    $route (to, from) {
-      this.index = to.query.index
-      this.getTabs()
-    }
-  }
-}
+    $route(to, from) {
+      this.index = to.query.index;
+      this.getTabs();
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -66,7 +66,7 @@
           </el-tabs>
           <span class="more" @click="jump()">更多</span>
         </div>
-        <div class="right">
+        <!-- <div class="right">
           <div
             @click="toSome(item.jump)"
             v-for="(item,index) in login"
@@ -91,7 +91,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
       </div>
       <div class="new-step display">
         <div class="laba display align justify">
@@ -110,17 +110,22 @@
                 :key="index"
                 class="display align dataOne"
               >
-                <span class="write-pointer"></span>
                 <span class="account" v-if="item.target_type">【{{item.target_type}}】</span>
                 <span class="text">{{item.name}}</span>
-
-                <span class="my-date">{{item.info_time}}</span>
+                <!-- <span class="my-date">{{item.info_time}}</span> -->
               </div>
             </vue-seamless-scroll>
           </div>
         </div>
       </div>
-      <div class="second-step display">
+      <div class="new-step2 display">
+        <div v-for="(item,index) in login" :key="index">
+          <a :href="item.jump" target="_blank">
+            <img :src="item.url" alt="登录" />
+          </a>
+        </div>
+      </div>
+      <!-- <div class="second-step display">
         <div class="logo-push">
           <div class="push-top display align">
             <div
@@ -160,7 +165,7 @@
         <div class="logo-text" @click="people">
           <img src="@/assets/image/home/people.png" alt />
         </div>
-      </div>
+      </div>-->
       <div class="third-step">
         <tabs style="margin-top:30px" :data="data1"></tabs>
         <tabs style="margin-top:30px" :data="data2"></tabs>
@@ -226,14 +231,26 @@ export default {
 
       login: [
         {
-          name: "登录",
-          url: require("@/assets/image/home/main1.png"),
-          jump: "login",
+          name: "近期开标",
+          url: require("@/assets/image/home/kaibiao.png"),
+          jump: "http://192.168.1.175:9096/#/bidOpening",
         },
         {
           name: "注册",
-          url: require("@/assets/image/home/main2.png"),
-          jump: "register",
+          url: require("@/assets/image/home/user_register.png"),
+          jump:
+            "http://121.11.160.122:9002/sso/ssosysuser/registBidder.html?returnUrl=http://121.11.160.122:9002/sso/ssosysuser/ssologin.html",
+        },
+        {
+          name: "登录",
+          url: require("@/assets/image/home/user_login.png"),
+          jump: "http://121.11.160.122:9002/sso/",
+        },
+        {
+          name: "工作人员登录",
+          url: require("@/assets/image/home/gzry_login.png"),
+          jump:
+            "http://121.11.160.122:9002/sso/ssosysuser/ssologin.html?netType=1",
         },
         // { name: '广东政务服务网', url: require('@/assets/image/home/main3.png'), jump: 'guang' },
       ],
@@ -299,7 +316,7 @@ export default {
   computed: {
     optionSingleHeightTime() {
       return {
-        singleHeight: 27,
+        singleHeight: 48,
         waitTime: 2500,
       };
     },
@@ -521,7 +538,7 @@ export default {
 
 .middle {
   margin: 0 22px;
-  width: 462px;
+  width: 718px;
   position: relative;
   height: 330px;
   overflow: hidden;
@@ -709,23 +726,23 @@ export default {
 }
 .new-step {
   width: 1200px;
-  height: 80px;
-  /* background: linear-gradient(0deg, #2b9bf1 0%, #63bafd 100%); */
-  background: url("../../assets/image/home/middle.png") center center no-repeat;
+  height: 48px;
+  background: url("../../assets/image/home/banner2.png") center center no-repeat;
   margin-top: 10px;
 }
 .laba {
   width: 75px;
-  height: 80px;
+  height: 48px;
 }
 
 .laba-content {
   /* padding: 4px 0; */
   /* line-height: 21px; */
   padding-right: 30px;
-  color: #ffffff;
-  font-size: 12px;
   width: calc(100% - 75px);
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
 }
 .write-pointer {
   width: 6px;
@@ -738,18 +755,29 @@ export default {
   margin-left: auto;
 }
 .dataOne {
-  height: 27px;
+  height: 48px;
   overflow: hidden;
   cursor: pointer;
 }
 
 .seamless-warp {
-  height: 80px;
+  height: 48px;
   overflow: hidden;
 }
 /* .myCase div {
   float: left;
 } */
+.new-step2 {
+  margin-top: 13px;
+}
+.new-step2 div {
+  margin-right: 13px;
+  cursor: pointer;
+}
+.new-step2 div img {
+  width: 290px;
+  height: 80px;
+}
 </style>
 <style>
 .main .el-carousel__button {

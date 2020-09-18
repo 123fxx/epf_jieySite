@@ -4,36 +4,33 @@
       <div class="links display align">
         <span class="link-text">相关链接</span>
         <div style="margin-left:53px">
-          <el-select v-model="value1"
-                     placeholder="国家级网站"
-                     @change="jump"
-                     style="width:100%">
-            <el-option v-for="(item,index) in options1"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"></el-option>
+          <el-select v-model="value1" placeholder="国家级网站" @change="jump" style="width:100%">
+            <el-option
+              v-for="(item,index) in options1"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
           </el-select>
         </div>
         <div style="margin:0 35px">
-          <el-select v-model="value2"
-                     placeholder="广东省级网站"
-                     @change="jump"
-                     style="width:100%">
-            <el-option v-for="(item,index) in options2"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"></el-option>
+          <el-select v-model="value2" placeholder="广东省级网站" @change="jump" style="width:100%">
+            <el-option
+              v-for="(item,index) in options2"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
           </el-select>
         </div>
         <div>
-          <el-select v-model="value3"
-                     placeholder="揭阳市相关网站"
-                     @change="jump"
-                     style="width:100%">
-            <el-option v-for="(item,index) in options3"
-                       :key="index"
-                       :label="item.label"
-                       :value="item.value"></el-option>
+          <el-select v-model="value3" placeholder="揭阳市相关网站" @change="jump" style="width:100%">
+            <el-option
+              v-for="(item,index) in options3"
+              :key="index"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
           </el-select>
         </div>
       </div>
@@ -43,28 +40,33 @@
             <div class="description-one">
               <span @click="push('/aboutMe')">关于我们</span>
               <span class="shu"></span>
-              <span @click="push('/aboutMe')">联系我们</span>
+              <span @click="push('/cityMap')">联系我们</span>
               <span class="shu"></span>
               <span @click="push('/aboutNav')">网址导航</span>
             </div>
             <div class="description-two">
+              <span>
+                <a
+                  href="http://bszs.conac.cn/sitename?method=show&id=5316C12526B57C60E053012819ACB84D"
+                >
+                  <img src="@/assets/image/home/causedw.png" alt />
+                </a>
+              </span>
               <span style="margin-right:20px">主办单位：揭阳市公共资源交易中心</span>
               <span>技术支持：深圳市壹平台信息技术有限公司</span>
+              <span>
+                <a href="http://121.43.68.40/exposure/jiucuo.html">
+                  <img src="@/assets/image/home/findError.png" alt />
+                </a>
+              </span>
             </div>
-          </div>
-          <div style="margin-left:16px;cursor:pointer;"
-               @click="toError">
-            <img src="@/assets/image/home/findError.png"
-                 alt />
           </div>
         </div>
         <div class="description-three display align">
           <span>网站标识码4452000082</span>
 
           <span class="display align">
-            <img src="@/assets/image/home/gongan.png"
-                 alt
-                 style="margin-right:8px" />
+            <img src="@/assets/image/home/gongan.png" alt style="margin-right:8px" />
             粤公网安备44520202000313号
           </span>
         </div>
@@ -75,7 +77,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       options1: [
         {
@@ -125,7 +127,7 @@ export default {
     };
   },
   methods: {
-    push (path) {
+    push(path) {
       let name = "";
       switch (path) {
         case "/aboutMe":
@@ -145,10 +147,10 @@ export default {
       this.$store.commit("add_tabs", params);
       this.$router.push(path);
     },
-    jump (value) {
+    jump(value) {
       window.open(value);
     },
-    toError () {
+    toError() {
       window.open("http://121.43.68.40/exposure/jiucuo.html");
     },
   },
@@ -191,12 +193,14 @@ export default {
 .description-one span {
   cursor: pointer;
 }
-.description-two {
+.description-two img {
+  vertical-align: middle;
+  margin: 0 20px;
 }
 
 .description-three {
   font-size: 14px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 .description-three span {
   margin: 0 20px;
