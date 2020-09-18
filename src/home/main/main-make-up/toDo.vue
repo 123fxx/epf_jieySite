@@ -134,17 +134,17 @@ export default {
       businessData: [
         {
           name: "互认平台登录",
-          url: require("@/assets/image/home/business1.png"),
+          url: require("@/assets/image/home/business1B.png"),
           jump: "https://platform.gdggzy.org.cn:8443/sso/login",
         },
         {
           name: "中介服务平台",
-          url: require("@/assets/image/home/business2.png"),
+          url: require("@/assets/image/home/business2B.png"),
           jump: "https://zjcs.gdggzy.org.cn/gd-zjcs-pub/home",
         },
         {
           name: "广东政务服务网",
-          url: require("@/assets/image/home/business3.png"),
+          url: require("@/assets/image/home/business3B.png"),
           jump: "http://www.gdzwfw.gov.cn/portal/index",
         },
       ],
@@ -170,11 +170,11 @@ export default {
     },
     businessover(item, index) {
       let num = index + 1;
-      item.url = require("@/assets/image/home/business" + num + "B.png");
+      item.url = require("@/assets/image/home/business" + num + ".png");
     },
     businessout(item, index) {
       let num = index + 1;
-      item.url = require("@/assets/image/home/business" + num + ".png");
+      item.url = require("@/assets/image/home/business" + num + "B.png");
     },
 
     jump(item) {

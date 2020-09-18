@@ -224,6 +224,10 @@ export default {
   position: fixed;
   right: 50px;
 }
+.fixed-contain .one:hover {
+  background: #f2f5ff;
+  border: 1px solid #5c7bea;
+}
 @media screen and (max-width: 1400px) {
   .fixed-contain {
     position: fixed;

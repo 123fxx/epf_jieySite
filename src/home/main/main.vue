@@ -119,7 +119,12 @@
         </div>
       </div>
       <div class="new-step2 display">
-        <div v-for="(item,index) in login" :key="index">
+        <div
+          v-for="(item,index) in login"
+          :key="index"
+          @mouseover="loginover(item,index,item.name)"
+          @mouseout="loginout(item,index,item.name)"
+        >
           <a :href="item.jump" target="_blank">
             <img :src="item.url" alt="登录" />
           </a>
@@ -231,23 +236,23 @@ export default {
 
       login: [
         {
-          name: "近期开标",
+          name: "kaibiao",
           url: require("@/assets/image/home/kaibiao.png"),
           jump: "http://192.168.1.175:9096/#/bidOpening",
         },
         {
-          name: "注册",
+          name: "user_register",
           url: require("@/assets/image/home/user_register.png"),
           jump:
             "http://121.11.160.122:9002/sso/ssosysuser/registBidder.html?returnUrl=http://121.11.160.122:9002/sso/ssosysuser/ssologin.html",
         },
         {
-          name: "登录",
+          name: "user_login",
           url: require("@/assets/image/home/user_login.png"),
           jump: "http://121.11.160.122:9002/sso/",
         },
         {
-          name: "工作人员登录",
+          name: "gzry_login",
           url: require("@/assets/image/home/gzry_login.png"),
           jump:
             "http://121.11.160.122:9002/sso/ssosysuser/ssologin.html?netType=1",
@@ -400,8 +405,18 @@ export default {
       item.url = require("@/assets/image/home/" + name + num + "B.png");
     },
     out(item, index, name) {
+      console.log("33", item, index, name);
       let num = index + 1;
       item.url = require("@/assets/image/home/" + name + num + ".png");
+    },
+    loginover(item, index, name) {
+      console.log(item, index, name);
+      let num = index + 1;
+      item.url = require("@/assets/image/home/" + name + "B.png");
+    },
+    loginout(item, index, name) {
+      let num = index + 1;
+      item.url = require("@/assets/image/home/" + name + ".png");
     },
     toSome(key) {
       switch (key) {
