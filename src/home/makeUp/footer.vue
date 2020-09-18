@@ -48,6 +48,7 @@
               <span>
                 <a
                   href="http://bszs.conac.cn/sitename?method=show&id=5316C12526B57C60E053012819ACB84D"
+                  target="_blank"
                 >
                   <img src="@/assets/image/home/causedw.png" alt />
                 </a>
@@ -55,7 +56,7 @@
               <span style="margin-right:20px">主办单位：揭阳市公共资源交易中心</span>
               <span>技术支持：深圳市壹平台信息技术有限公司</span>
               <span>
-                <a href="http://121.43.68.40/exposure/jiucuo.html">
+                <a href="http://121.43.68.40/exposure/jiucuo.html" target="_blank">
                   <img src="@/assets/image/home/findError.png" alt />
                 </a>
               </span>
