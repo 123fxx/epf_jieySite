@@ -55,10 +55,10 @@
           <el-form-item label="手机号码" prop="ownerMobile">
             <el-input v-model="form.ownerMobile" placeholder="请输入准确的手机号码"></el-input>
           </el-form-item>
-          <el-form-item label="短信验证码" class="code-contain" prop="code">
-            <el-input v-model="form.code" placeholder="请输入验证码"></el-input>
+          <el-form-item label="短信验证码" class="code-contain" prop="securityCode">
+            <el-input v-model="form.securityCode" placeholder="请输入验证码"></el-input>
 
-            <div class="code">获取验证码</div>
+            <div class="code" @click="obtainCode">获取验证码</div>
           </el-form-item>
           <el-form-item label="身份证号" prop="ownerIdno">
             <el-input v-model="form.ownerIdno" placeholder="请输入准确的身份证号"></el-input>
@@ -90,6 +90,19 @@
           <el-form-item label="咨询内容" prop="consult">
             <el-input type="textarea" :rows="4" placeholder="请完整的表述问题" v-model="form.consult"></el-input>
           </el-form-item>
+          <el-form-item label="附件">
+            <el-upload
+              class="avatar-uploader"
+              action="#"
+              :http-request="httpRequest"
+              :show-file-list="true"
+              :limit="1"
+            >
+              <img v-if="data.imageUrl" :src="data.imageUrl" class="avatar" />
+              <el-button size="small" type="primary">点击上传</el-button>
+              <div slot="tip" class="el-upload__tip">(文件不得超过2M,支持.doc,pdf,.jpg)</div>
+            </el-upload>
+          </el-form-item>
         </el-form>
       </div>
       <span slot="footer" class="footer display justify" style="text-align:center">
@@ -117,10 +130,10 @@
           <el-form-item label="手机号码" prop="ownerMobile">
             <el-input v-model="form.ownerMobile" placeholder="请输入准确的手机号码"></el-input>
           </el-form-item>
-          <el-form-item label="短信验证码" class="code-contain" prop="code">
-            <el-input v-model="form.code" placeholder="请输入验证码"></el-input>
+          <el-form-item label="短信验证码" class="code-contain" prop="securityCode">
+            <el-input v-model="form.securityCode" placeholder="请输入验证码"></el-input>
 
-            <div class="code">获取验证码</div>
+            <div class="code" @click="obtainCode">获取验证码</div>
           </el-form-item>
           <el-form-item label="身份证号" prop="ownerIdno">
             <el-input v-model="form.ownerIdno" placeholder="请输入准确的身份证号"></el-input>
@@ -188,8 +201,9 @@ export default {
         consultTime: "",
         consult: "",
         consultBusiness: "",
-        code: "",
+        securityCode: "",
         ownerTel: "",
+        filename: "",
       },
       pre: "",
       dialogVisible2: false,
@@ -201,6 +215,7 @@ export default {
       },
       consultType: "0",
       business: [],
+      fileList: [],
       formrules: {
         ownerName: [
           {
@@ -292,7 +307,7 @@ export default {
       this.dialogVisible = true;
     },
     submitRules() {
-      this.form["allowPublish"] = "1";
+      this.form["allowPublish"] = "0";
       this.form["consultType"] = this.consultType;
       this.submit();
     },
@@ -315,14 +330,6 @@ export default {
         }
       });
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-    beforeRemove() {},
     answerQuery(url) {
       this.$get(url, this.params).then((res) => {
         this.data = res.items;
@@ -335,6 +342,27 @@ export default {
     },
     nextClick(val) {
       this.answerQuery(val);
+    },
+    // 附件
+    httpRequest(data) {
+      this.form.filename = data.file.name;
+    },
+    //验证码
+    obtainCode() {
+      if (this.form.ownerMobil) {
+        this.$axios
+          .get(
+            "/api/ords/epfcms/consult/getSmsSecurityCode/:" +
+              this.form.ownerMobile
+          )
+          .then((res) => {
+            if (res.status !== 200) {
+              this.$message.success("已发送");
+            }
+          });
+      } else {
+        this.$message.errror("请输入手机号");
+      }
     },
   },
 };
@@ -496,6 +524,21 @@ export default {
 .noData-text {
   color: #999;
   margin-top: 10px;
+}
+.answer .el-button--small,
+.el-button--small.is-round {
+  width: 100px;
+  height: 32px;
+  font-size: 14px;
+  background: #f7f9ff;
+  border: 1px solid #7d97f3;
+  color: #3854b8;
+}
+.answer .el-upload__tip {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 14px;
+  color: #ff0000;
 }
 </style>
 
