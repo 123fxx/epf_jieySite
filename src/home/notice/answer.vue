@@ -155,7 +155,7 @@
 
 <script>
 let checkPhone = (rule, value, callback) => {
-  const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/;
+  const phoneReg = /^1[3456789]\d{9}$/;
   if (!value) {
     return callback(new Error("手机号码不能为空"));
   }
@@ -349,19 +349,19 @@ export default {
     },
     //验证码
     obtainCode() {
-      if (this.form.ownerMobil) {
+      if (this.form.ownerMobile) {
         this.$axios
           .get(
             "/api/ords/epfcms/consult/getSmsSecurityCode/:" +
               this.form.ownerMobile
           )
           .then((res) => {
-            if (res.status !== 200) {
+            if (res.state == 0) {
               this.$message.success("已发送");
             }
           });
       } else {
-        this.$message.errror("请输入手机号");
+        this.$message.success("请先输入手机号码");
       }
     },
   },
