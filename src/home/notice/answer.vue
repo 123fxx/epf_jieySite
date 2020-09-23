@@ -327,6 +327,8 @@ export default {
             .post("/api/ords/epfcms/consult/addConsult", this.formData, config)
             .then((res) => {
               if (res.status !== 200) {
+                this.dialogVisible = false;
+                this.dialogVisible2 = false;
                 this.$message.error("提交失败");
                 return;
               }
@@ -341,7 +343,7 @@ export default {
                   type: "error",
                   customClass: "zZindex",
                 });
-                return false;
+                return;
               }
             });
         } else {
