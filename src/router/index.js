@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 const originalPush = Router.prototype.push
-Router.prototype.push = function push (location) {
+Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 import pdf from '@/home/login/pdf'
@@ -71,7 +71,7 @@ export default new Router({
             let url = ''
             if (index === '6') {
               switch (name) {
-                case '服务指南':
+                case '操作指南':
                   url = '/server'
                   break;
 

@@ -97,6 +97,7 @@
               :http-request="httpRequest"
               :show-file-list="true"
               :limit="1"
+              :before-upload="beforeAvatarUpload"
             >
               <img v-if="data.imageUrl" :src="data.imageUrl" class="avatar" />
               <el-button size="small" type="primary">点击上传</el-button>
@@ -367,6 +368,17 @@ export default {
     // 附件
     httpRequest(data) {
       this.form.filename = data.file.name;
+    },
+    beforeAvatarUpload(file) {
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.$message({
+          message: "附件大小不能超过 2MB!",
+          type: "error",
+          customClass: "zZindex",
+        });
+      }
+      return isLt2M;
     },
     //验证码
     obtainCode() {
