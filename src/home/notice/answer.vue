@@ -205,6 +205,7 @@ export default {
         ownerTel: "",
         filename: "",
       },
+
       pre: "",
       dialogVisible2: false,
       next: "",
@@ -216,6 +217,7 @@ export default {
       consultType: "0",
       business: [],
       fileList: [],
+      formData: new FormData(),
       formrules: {
         ownerName: [
           {
@@ -315,8 +317,16 @@ export default {
         if (valid) {
           this.dialogVisible = false;
           this.dialogVisible2 = false;
+          for (let i in this.form) {
+            this.formData.append(i, this.form[i]);
+          }
+          let config = {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          };
           this.$axios
-            .post("/api/ords/epfcms/consult/addConsult", this.form)
+            .post("/api/ords/epfcms/consult/addConsult", this.formData, config)
             .then((res) => {
               if (res.status !== 200) {
                 return;
