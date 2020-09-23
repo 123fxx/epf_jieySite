@@ -357,6 +357,7 @@ export default {
           )
           .then((res) => {
             if (res.state == 0) {
+              this.$message.success("发送成功");
             }
           });
       } else {
