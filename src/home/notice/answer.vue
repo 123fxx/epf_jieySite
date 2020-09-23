@@ -315,8 +315,6 @@ export default {
     submit() {
       this.$refs["ownerForm" + this.consultType].validate((valid) => {
         if (valid) {
-          this.dialogVisible = false;
-          this.dialogVisible2 = false;
           for (let i in this.form) {
             this.formData.append(i, this.form[i]);
           }
@@ -329,10 +327,22 @@ export default {
             .post("/api/ords/epfcms/consult/addConsult", this.formData, config)
             .then((res) => {
               if (res.status !== 200) {
+                this.$message.error("提交失败");
                 return;
               }
-              this.$message.success("提交成功");
-              this.form = this.$options.data().form;
+              if (res.data.state == 1) {
+                this.dialogVisible = false;
+                this.dialogVisible2 = false;
+                this.$message.success("提交成功");
+                this.form = this.$options.data().form;
+              } else {
+                this.$message({
+                  message: res.data.message,
+                  type: "error",
+                  customClass: "zZindex",
+                });
+                return false;
+              }
             });
         } else {
           return false;
@@ -371,7 +381,7 @@ export default {
             }
           });
       } else {
-        this.$message.success("请先输入手机号码");
+        this.$message.error("请先输入手机号码");
       }
     },
   },
@@ -575,5 +585,9 @@ export default {
 
 .answer .el-form-item__error {
   padding-top: 0;
+}
+.zZindex {
+  top: 20% !important;
+  z-index: 3000 !important;
 }
 </style>
