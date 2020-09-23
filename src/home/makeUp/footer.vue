@@ -81,51 +81,56 @@ export default {
   data() {
     return {
       options1: [
-        {
-          value: "http://www.mohurd.gov.cn/",
-          label: "中华人民共和国住房和城乡建设部",
-        },
-        {
-          value: "http://www.mof.gov.cn/index.htm",
-          label: "中华人民共和国财政部",
-        },
-        {
-          value: "https://www.ndrc.gov.cn/",
-          label: "中华人民共和国国家发展和改革委员会",
-        },
+        // {
+        //   value: "http://www.mohurd.gov.cn/",
+        //   label: "中华人民共和国住房和城乡建设部",
+        // },
+        // {
+        //   value: "http://www.mof.gov.cn/index.htm",
+        //   label: "中华人民共和国财政部",
+        // },
+        // {
+        //   value: "https://www.ndrc.gov.cn/",
+        //   label: "中华人民共和国国家发展和改革委员会",
+        // },
       ],
       options2: [
-        {
-          value: "http://zfcxjst.gd.gov.cn/",
-          label: "广东省住房和城乡建设厅",
-        },
-        {
-          value: "http://czt.gd.gov.cn/",
-          label: "广东省财政厅",
-        },
-        {
-          value: "http://drc.gd.gov.cn/",
-          label: "广东省发展和改革委员会",
-        },
+        // {
+        //   value: "http://zfcxjst.gd.gov.cn/",
+        //   label: "广东省住房和城乡建设厅",
+        // },
+        // {
+        //   value: "http://czt.gd.gov.cn/",
+        //   label: "广东省财政厅",
+        // },
+        // {
+        //   value: "http://drc.gd.gov.cn/",
+        //   label: "广东省发展和改革委员会",
+        // },
       ],
       options3: [
-        {
-          value: "http://www.jieyang.gov.cn/zjj/",
-          label: "揭阳市住房和城乡建设局官方网站",
-        },
-        {
-          value: "http://www.jieyang.gov.cn/jycz/",
-          label: "揭阳市财政局",
-        },
-        {
-          value: "https://www.baidu.com/",
-          label: "揭阳市发展和改革委员局",
-        },
+        // {
+        //   value: "http://www.jieyang.gov.cn/zjj/",
+        //   label: "揭阳市住房和城乡建设局官方网站",
+        // },
+        // {
+        //   value: "http://www.jieyang.gov.cn/jycz/",
+        //   label: "揭阳市财政局",
+        // },
+        // {
+        //   value: "https://www.baidu.com/",
+        //   label: "揭阳市发展和改革委员局",
+        // },
       ],
       value1: "",
       value2: "",
       value3: "",
     };
+  },
+  created() {
+    this.queryCms("010001");
+    this.queryCms("010002");
+    this.queryCms("010003");
   },
   methods: {
     push(path) {
@@ -153,6 +158,34 @@ export default {
     },
     toError() {
       window.open("http://121.43.68.40/exposure/jiucuo.html");
+    },
+    queryCms(val) {
+      // let res = await this.$axios.get(
+      //   "/api/ords/epfcms/cmsItem/queryCmsItemBySeriesId/" + val
+      // );
+      this.$axios
+        .get("/api/ords/epfcms/cmsItem/queryCmsItemBySeriesId/" + val)
+        .then((res) => {
+          let data = res.data.items;
+          if (data) {
+            data.forEach((elem) => {
+              let obj = {};
+              if (val == "010001") {
+                obj.label = elem.name;
+                obj.value = elem.url;
+                this.options1.push(obj);
+              } else if (val == "010002") {
+                obj.label = elem.name;
+                obj.value = elem.url;
+                this.options2.push(obj);
+              } else if (val == "010003") {
+                obj.label = elem.name;
+                obj.value = elem.url;
+                this.options3.push(obj);
+              }
+            });
+          }
+        });
     },
   },
 };

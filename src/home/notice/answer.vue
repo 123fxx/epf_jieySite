@@ -238,7 +238,6 @@ export default {
             message: "请输入准确的身份证号",
             trigger: "blur",
           },
-          { validator: checkOwnerIdno, trigger: "blur" },
         ],
 
         consult: [
@@ -350,14 +349,14 @@ export default {
     //验证码
     obtainCode() {
       if (this.form.ownerMobile) {
+        this.$message.success("已发送，请稍等");
         this.$axios
           .get(
-            "/api/ords/epfcms/consult/getSmsSecurityCode/:" +
+            "/api/ords/epfcms/consult/getSmsSecurityCode/" +
               this.form.ownerMobile
           )
           .then((res) => {
             if (res.state == 0) {
-              this.$message.success("已发送");
             }
           });
       } else {
