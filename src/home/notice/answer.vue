@@ -4,6 +4,7 @@
       <div class="q">
         <div class="icon red">问</div>
         <div class="q-title">{{item.inquiry_consult}}</div>
+        <div class="q-file" @click="download(item.inquiry_blob_id)">{{item.inquiry_file_name}}</div>
         <div v-for="(file,fileIndex) in data.files" :key="fileIndex" class="q-file">{{file.name}}</div>
 
         <div class="q-info">
@@ -57,8 +58,8 @@
           </el-form-item>
           <el-form-item label="短信验证码" class="code-contain" prop="securityCode">
             <el-input v-model="form.securityCode" placeholder="请输入验证码"></el-input>
-
-            <div class="code" @click="obtainCode">获取验证码</div>
+            <div class="code" v-show="!show">{{count}} s</div>
+            <div class="code" @click="obtainCode" v-show="show">获取验证码</div>
           </el-form-item>
           <el-form-item label="身份证号" prop="ownerIdno">
             <el-input v-model="form.ownerIdno" placeholder="请输入准确的身份证号"></el-input>
@@ -96,7 +97,7 @@
               action="#"
               :http-request="httpRequest"
               :show-file-list="true"
-              :limit="1"
+              :on-change="handleChange"
               :before-upload="beforeAvatarUpload"
             >
               <img v-if="data.imageUrl" :src="data.imageUrl" class="avatar" />
@@ -133,8 +134,8 @@
           </el-form-item>
           <el-form-item label="短信验证码" class="code-contain" prop="securityCode">
             <el-input v-model="form.securityCode" placeholder="请输入验证码"></el-input>
-
-            <div class="code" @click="obtainCode">获取验证码</div>
+            <div class="code" v-show="!show">{{count}} s</div>
+            <div class="code" @click="obtainCode" v-show="show">获取验证码</div>
           </el-form-item>
           <el-form-item label="身份证号" prop="ownerIdno">
             <el-input v-model="form.ownerIdno" placeholder="请输入准确的身份证号"></el-input>
@@ -207,6 +208,10 @@ export default {
         filename: "",
       },
 
+      show: true,
+      count: "",
+      timer: null,
+
       pre: "",
       dialogVisible2: false,
       next: "",
@@ -219,6 +224,7 @@ export default {
       business: [],
       fileList: [],
       formData: new FormData(),
+      errornum: 0,
       formrules: {
         ownerName: [
           {
@@ -369,21 +375,45 @@ export default {
     httpRequest(data) {
       this.form.filename = data.file.name;
     },
+    handleChange(file, fileList) {
+      // 当多余一个的时候替换文件
+      if (this.errornum == 0) {
+        if (fileList.length > 1) {
+          fileList.splice(0, 1);
+        }
+      }
+    },
     beforeAvatarUpload(file) {
+      this.errornum = 0;
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
+        this.errornum = 1;
         this.$message({
           message: "附件大小不能超过 2MB!",
           type: "error",
           customClass: "zZindex",
         });
+        return false;
       }
       return isLt2M;
     },
     //验证码
     obtainCode() {
       if (this.form.ownerMobile) {
-        this.$message.success("已发送，请稍等");
+        const TIME_COUNT = 60;
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000);
+        }
         this.$axios
           .get(
             "/api/ords/epfcms/consult/getSmsSecurityCode/" +
@@ -397,6 +427,10 @@ export default {
       } else {
         this.$message.error("请先输入手机号码");
       }
+    },
+    //下载附件
+    download(id) {
+      window.open("/api/ords/epfcms/file/download/" + id);
     },
   },
 };
@@ -456,6 +490,7 @@ export default {
 }
 .q-file {
   color: #3854b8;
+  cursor: pointer;
 }
 
 .q-info {
