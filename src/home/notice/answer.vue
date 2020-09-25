@@ -1,40 +1,54 @@
 <template>
   <div class="answer">
-    <div class="answer-one" v-for="(item,index) in data" :key="index">
+    <div class="answer-one" v-for="(item, index) in data" :key="index">
       <div class="q">
         <div class="icon red">问</div>
-        <div class="q-title">{{item.inquiry_consult}}</div>
-        <div class="q-file" @click="download(item.inquiry_blob_id)">{{item.inquiry_file_name}}</div>
-        <div v-for="(file,fileIndex) in data.files" :key="fileIndex" class="q-file">{{file.name}}</div>
+        <div class="q-title">{{ item.inquiry_consult }}</div>
+        <div class="q-file" @click="download(item.inquiry_blob_id)">
+          {{ item.inquiry_file_name }}
+        </div>
+        <div
+          v-for="(file, fileIndex) in data.files"
+          :key="fileIndex"
+          class="q-file"
+        >
+          {{ file.name }}
+        </div>
 
         <div class="q-info">
-          <span>{{item.inquiry_owner_name}}</span>
+          <span>{{ item.inquiry_owner_name }}</span>
 
-          <span>发布于 {{item.inquiry_consult_time}}</span>
+          <span>发布于 {{ item.inquiry_consult_time }}</span>
         </div>
       </div>
       <div class="a">
         <div class="icon green">答</div>
         <div class="a-contain">
           <div class="a-oneTr">
-            <span>{{item.answer_owner_name}}</span>
+            <span>{{ item.answer_owner_name }}</span>
 
-            <span>回复于 {{item.answer_consult_time}}</span>
+            <span>回复于 {{ item.answer_consult_time }}</span>
           </div>
-          <div class="a-twoTr">{{item.answer_consult}}</div>
+          <div class="a-twoTr">{{ item.answer_consult }}</div>
         </div>
       </div>
     </div>
-    <div class="page display" style="padding-right:10px">
-      <epf-page :pre="pre" :next="next" @pre-click="prevClick" @next-click="nextClick" :url="url"></epf-page>
+    <div class="page display" style="padding-right: 10px">
+      <epf-page
+        :pre="pre"
+        :next="next"
+        @pre-click="prevClick"
+        @next-click="nextClick"
+        :url="url"
+      ></epf-page>
     </div>
     <div v-if="!data.length" class="noData display align justify">
-      <div style="text-align:center">
+      <div style="text-align: center">
         <img src="@/assets/image/home/noData.png" alt />
         <div class="noData-text">暂无数据</div>
       </div>
     </div>
-    <div class="img-contain" v-if="consultType==='0'" @click="want()">
+    <div class="img-contain" v-if="consultType === '0'" @click="want()">
       <img src="@/assets/image/home/question.png" alt />
     </div>
 
@@ -42,27 +56,54 @@
       <template slot="title">
         <div class="dialog-title display align">
           <span class="title-text">我要咨询</span>
-          <span class="el-icon-circle-close title-icon" @click="dialogVisible = false"></span>
+          <span
+            class="el-icon-circle-close title-icon"
+            @click="dialogVisible = false"
+          ></span>
         </div>
       </template>
       <div class="form-contain">
-        <el-form ref="ownerForm0" :model="form" label-width="100px" :rules="formrules">
+        <el-form
+          ref="ownerForm0"
+          :model="form"
+          label-width="100px"
+          :rules="formrules"
+        >
           <el-form-item label="咨询人" prop="ownerName">
-            <el-input v-model="form.ownerName" placeholder="请输入真实姓名"></el-input>
+            <el-input
+              v-model="form.ownerName"
+              placeholder="请输入真实姓名"
+            ></el-input>
           </el-form-item>
           <el-form-item label="联系电话" prop="ownerTel">
-            <el-input v-model="form.ownerTel" placeholder="请输入常用座机号，便于联系"></el-input>
+            <el-input
+              v-model="form.ownerTel"
+              placeholder="请输入常用座机号，便于联系"
+            ></el-input>
           </el-form-item>
           <el-form-item label="手机号码" prop="ownerMobile">
-            <el-input v-model="form.ownerMobile" placeholder="请输入准确的手机号码"></el-input>
+            <el-input
+              v-model="form.ownerMobile"
+              placeholder="请输入准确的手机号码"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="短信验证码" class="code-contain" prop="securityCode">
-            <el-input v-model="form.securityCode" placeholder="请输入验证码"></el-input>
-            <div class="code" v-show="!show">{{count}} s</div>
+          <el-form-item
+            label="短信验证码"
+            class="code-contain"
+            prop="securityCode"
+          >
+            <el-input
+              v-model="form.securityCode"
+              placeholder="请输入验证码"
+            ></el-input>
+            <div class="code" v-show="!show">{{ count }} s</div>
             <div class="code" @click="obtainCode" v-show="show">获取验证码</div>
           </el-form-item>
           <el-form-item label="身份证号" prop="ownerIdno">
-            <el-input v-model="form.ownerIdno" placeholder="请输入准确的身份证号"></el-input>
+            <el-input
+              v-model="form.ownerIdno"
+              placeholder="请输入准确的身份证号"
+            ></el-input>
           </el-form-item>
 
           <el-form-item label="业务模块" prop="consultBusiness">
@@ -85,16 +126,22 @@
               value-format="yyyy-MM-dd"
               placeholder="选择日期"
               v-model="form.consultTime"
-              style="width:100%;"
+              style="width: 100%"
             ></el-date-picker>
           </el-form-item>
           <el-form-item label="咨询内容" prop="consult">
-            <el-input type="textarea" :rows="4" placeholder="请完整的表述问题" v-model="form.consult"></el-input>
+            <el-input
+              type="textarea"
+              :rows="4"
+              placeholder="请完整的表述问题"
+              v-model="form.consult"
+            ></el-input>
           </el-form-item>
           <el-form-item label="附件">
             <el-upload
               class="avatar-uploader"
               action="#"
+              name="body"
               :http-request="httpRequest"
               :show-file-list="true"
               :on-change="handleChange"
@@ -102,12 +149,18 @@
             >
               <img v-if="data.imageUrl" :src="data.imageUrl" class="avatar" />
               <el-button size="small" type="primary">点击上传</el-button>
-              <div slot="tip" class="el-upload__tip">(文件不得超过2M,支持.doc,pdf,.jpg)</div>
+              <div slot="tip" class="el-upload__tip">
+                (文件不得超过2M,支持.doc,pdf,.jpg)
+              </div>
             </el-upload>
           </el-form-item>
         </el-form>
       </div>
-      <span slot="footer" class="footer display justify" style="text-align:center">
+      <span
+        slot="footer"
+        class="footer display justify"
+        style="text-align: center"
+      >
         <div class="button cancel" @click="dialogVisible = false">取消</div>
         <div class="button enter" @click="submitRules">确定</div>
       </span>
@@ -118,35 +171,71 @@
       <template slot="title">
         <div class="dialog-title display align">
           <span class="title-text">我要投诉</span>
-          <span class="el-icon-circle-close title-icon" @click="dialogVisible2 = false"></span>
+          <span
+            class="el-icon-circle-close title-icon"
+            @click="dialogVisible2 = false"
+          ></span>
         </div>
       </template>
       <div class="form-contain">
-        <el-form ref="ownerForm1" :model="form" label-width="100px" :rules="formrules">
+        <el-form
+          ref="ownerForm1"
+          :model="form"
+          label-width="100px"
+          :rules="formrules"
+        >
           <el-form-item label="联系人" prop="ownerName">
-            <el-input v-model="form.ownerName" placeholder="请输入真实姓名"></el-input>
+            <el-input
+              v-model="form.ownerName"
+              placeholder="请输入真实姓名"
+            ></el-input>
           </el-form-item>
           <el-form-item label="联系电话" prop="ownerTel">
-            <el-input v-model="form.ownerTel" placeholder="请输入常用座机号，便于联系"></el-input>
+            <el-input
+              v-model="form.ownerTel"
+              placeholder="请输入常用座机号，便于联系"
+            ></el-input>
           </el-form-item>
           <el-form-item label="手机号码" prop="ownerMobile">
-            <el-input v-model="form.ownerMobile" placeholder="请输入准确的手机号码"></el-input>
+            <el-input
+              v-model="form.ownerMobile"
+              placeholder="请输入准确的手机号码"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="短信验证码" class="code-contain" prop="securityCode">
-            <el-input v-model="form.securityCode" placeholder="请输入验证码"></el-input>
-            <div class="code" v-show="!show">{{count}} s</div>
+          <el-form-item
+            label="短信验证码"
+            class="code-contain"
+            prop="securityCode"
+          >
+            <el-input
+              v-model="form.securityCode"
+              placeholder="请输入验证码"
+            ></el-input>
+            <div class="code" v-show="!show">{{ count }} s</div>
             <div class="code" @click="obtainCode" v-show="show">获取验证码</div>
           </el-form-item>
           <el-form-item label="身份证号" prop="ownerIdno">
-            <el-input v-model="form.ownerIdno" placeholder="请输入准确的身份证号"></el-input>
+            <el-input
+              v-model="form.ownerIdno"
+              placeholder="请输入准确的身份证号"
+            ></el-input>
           </el-form-item>
 
           <el-form-item label="投诉内容" prop="consult">
-            <el-input type="textarea" :rows="4" placeholder="请完整的表述问题" v-model="form.consult"></el-input>
+            <el-input
+              type="textarea"
+              :rows="4"
+              placeholder="请完整的表述问题"
+              v-model="form.consult"
+            ></el-input>
           </el-form-item>
         </el-form>
       </div>
-      <span slot="footer" class="footer display justify" style="text-align:center">
+      <span
+        slot="footer"
+        class="footer display justify"
+        style="text-align: center"
+      >
         <div class="button cancel" @click="dialogVisible2 = false">取消</div>
         <div class="button enter" @click="submitRules">提交</div>
       </span>
@@ -206,6 +295,7 @@ export default {
         securityCode: "",
         ownerTel: "",
         filename: "",
+        body: "",
       },
 
       show: true,
@@ -333,6 +423,7 @@ export default {
           this.$axios
             .post("/api/ords/epfcms/consult/addConsult", this.formData, config)
             .then((res) => {
+              debugger;
               if (res.status !== 200) {
                 this.dialogVisible = false;
                 this.dialogVisible2 = false;
@@ -373,7 +464,9 @@ export default {
     },
     // 附件
     httpRequest(data) {
+      console.log("附件", data);
       this.form.filename = data.file.name;
+      this.form.body = data.file;
     },
     handleChange(file, fileList) {
       // 当多余一个的时候替换文件
