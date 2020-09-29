@@ -140,6 +140,7 @@
           <el-form-item label="附件">
             <el-upload
               class="avatar-uploader"
+              ref="upload"
               action="#"
               name="body"
               :http-request="httpRequest"
@@ -162,7 +163,7 @@
         style="text-align: center"
       >
         <div class="button cancel" @click="dialogVisible = false">取消</div>
-        <div class="button enter" @click="submitRules">确定</div>
+        <div class="button enter" @click="submitRules">提交</div>
       </span>
       <!--  -->
     </el-dialog>
@@ -412,6 +413,7 @@ export default {
     submit() {
       this.$refs["ownerForm" + this.consultType].validate((valid) => {
         if (valid) {
+          this.formData = new FormData();
           for (let i in this.form) {
             this.formData.append(i, this.form[i]);
           }
@@ -423,7 +425,6 @@ export default {
           this.$axios
             .post("/api/ords/epfcms/consult/addConsult", this.formData, config)
             .then((res) => {
-              debugger;
               if (res.status !== 200) {
                 this.dialogVisible = false;
                 this.dialogVisible2 = false;
@@ -435,6 +436,7 @@ export default {
                 this.dialogVisible2 = false;
                 this.$message.success("提交成功");
                 this.form = this.$options.data().form;
+                this.$refs.upload.clearFiles();
               } else {
                 this.$message({
                   message: res.data.message,
@@ -478,7 +480,22 @@ export default {
     },
     beforeAvatarUpload(file) {
       this.errornum = 0;
+      let extName = file.name.split(".").slice(-1)[0];
       const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (
+        file.type !== "image/jpeg" &&
+        file.type !== "application/pdf" &&
+        file.type !== "application/msword"
+      ) {
+        this.errornum = 1;
+        this.$message({
+          message: "附件仅支持支持.doc,pdf,.jpg格式!",
+          type: "error",
+          customClass: "zZindex",
+        });
+        return false;
+      }
       if (!isLt2M) {
         this.errornum = 1;
         this.$message({
