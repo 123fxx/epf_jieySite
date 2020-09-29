@@ -4,19 +4,23 @@
       <div class="area area-contain">
         <div class="left">
           <div>欢迎来到揭阳市公共资源交易中心</div>
-          <div style="margin:0 20px">
+          <div style="margin: 0 20px">
             今天是
-            {{weather.date}}
-            {{weather.week}}
+            {{ weather.date }}
+            {{ weather.week }}
           </div>
 
           <div class="display align">
             <img
-              :src="'http://tq.daodaoim.com//tianqiapi/skin/pitaya/'+this.weather.wea_img+'.png'"
+              :src="
+                'http://tq.daodaoim.com//tianqiapi/skin/pitaya/' +
+                this.weather.wea_img +
+                '.png'
+              "
               alt
               class="weather-img"
             />
-            <span>{{weather.tem2}} - {{weather.tem1}}</span>
+            <span>{{ weather.tem2 }} - {{ weather.tem1 }}</span>
           </div>
 
           <div></div>
@@ -31,19 +35,24 @@
 
     <div
       class="banner"
-      :style="{backgroundImage:'url('+require('@/assets/image/home/banner.png')+')'}"
+      :style="{
+        backgroundImage:
+          'url(' + require('@/assets/image/home/banner.png') + ')',
+      }"
     ></div>
 
     <div class="nav">
-      <div class="area display" style="justify-content:space-between">
+      <div class="area display" style="justify-content: space-between">
         <div class="nav-content display">
           <div
-            v-for="(item,index) in nav"
+            v-for="(item, index) in nav"
             :key="index"
             class="nav-content-one display align justify"
-            :class="{'active':item.name===navActive}"
+            :class="{ active: item.name === navActive }"
             @click="navClick(item)"
-          >{{item.name}}</div>
+          >
+            {{ item.name }}
+          </div>
         </div>
         <div class="nav-search display align">
           <el-input placeholder="请输入关键词" v-model="input">
@@ -214,7 +223,7 @@ export default {
     getWeather(val) {
       this.$axios
         .get(
-          "https://www.tianqiapi.com/api/?version=v1&city=揭阳&appid=23443729&appsecret=RyCI1McN"
+          "https://www.tianqiapi.com/api/?version=v1&city=揭阳&appid=55271816&appsecret=UZJnC3AQ"
         )
         .then((res) => {
           if (res.status !== 200) {
