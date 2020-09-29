@@ -147,6 +147,7 @@
               :show-file-list="true"
               :on-change="handleChange"
               :before-upload="beforeAvatarUpload"
+              accept=".jpg, .doc, .docx, .pdf"
             >
               <img v-if="data.imageUrl" :src="data.imageUrl" class="avatar" />
               <el-button size="small" type="primary">点击上传</el-button>
@@ -486,7 +487,9 @@ export default {
       if (
         file.type !== "image/jpeg" &&
         file.type !== "application/pdf" &&
-        file.type !== "application/msword"
+        file.type !== "application/msword" &&
+        file.type !==
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       ) {
         this.errornum = 1;
         this.$message({
