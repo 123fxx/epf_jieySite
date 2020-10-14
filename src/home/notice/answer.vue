@@ -416,8 +416,11 @@ export default {
         if (valid) {
           this.formData = new FormData();
           for (let i in this.form) {
-            this.formData.append(i, this.form[i]);
+            if (i != "body") {
+              this.formData.append(i, this.form[i]);
+            }
           }
+          this.formData.append("body", this.form["body"]);
           let config = {
             headers: {
               "Content-Type": "multipart/form-data",
