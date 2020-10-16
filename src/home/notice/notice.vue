@@ -6,14 +6,17 @@
         <div class="notice-left">
           <div
             class="notice-left-one"
-            v-for="(item,index) in list"
+            v-for="(item, index) in list"
             :key="index"
-            :class="{'active':item.query.id===active}"
+            :class="{ active: item.query.id === active }"
             @click="listClick(item)"
           >
             <div class="blue display align justify">
-              <span>{{item.query.name}}</span>
-              <span class="icon" :class="item.query.id===active?'el-icon-caret-right':''"></span>
+              <span>{{ item.query.name }}</span>
+              <span
+                class="icon"
+                :class="item.query.id === active ? 'el-icon-caret-right' : ''"
+              ></span>
             </div>
           </div>
         </div>
@@ -107,6 +110,22 @@ export default {
             },
           ];
 
+          break;
+        case "5":
+          this.list = [
+            {
+              path: "/notice",
+              query: { index: 5, id: "001002", name: "通知公告" },
+            },
+            {
+              path: "/notice",
+              query: { index: 5, id: "001003", name: "中心动态" },
+            },
+            {
+              path: "/notice",
+              query: { index: 5, id: "001005", name: "政声传递" },
+            },
+          ];
           break;
         case "before11":
           this.list = [
