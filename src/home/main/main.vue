@@ -4,63 +4,67 @@
       <div class="first-step display">
         <div class="left">
           <el-carousel height="330px">
-            <el-carousel-item v-for="(item,index) in banner" :key="index">
+            <el-carousel-item v-for="(item, index) in banner" :key="index">
               <div class="img-contain" @click="toDetail(item)">
                 <img
-                  :src="'/api/ords/epfcms/file/download/'+item.flash_image"
+                  :src="'/api/ords/epfcms/file/download/' + item.flash_image"
                   alt
-                  style="width:100%;height:330px"
+                  style="width: 100%; height: 330px"
                 />
                 <div class="img-title">
-                  <div class="img-text">{{item.name}}</div>
+                  <div class="img-text">{{ item.name }}</div>
                 </div>
               </div>
             </el-carousel-item>
           </el-carousel>
         </div>
         <div class="middle" v-loading="loading1">
-          <el-tabs style="height:100%" v-model="activeLabel" @tab-click="handleClick">
+          <el-tabs
+            style="height: 100%"
+            v-model="activeLabel"
+            @tab-click="handleClick"
+          >
             <el-tab-pane name="001003">
               <div slot="label">通知公告</div>
               <div
                 class="article-title display"
-                v-for="(item,index) in notice1"
+                v-for="(item, index) in notice1"
                 :key="index"
                 @click="toDetail(item)"
               >
                 <div class="title-left">
                   <span class="red-point"></span>
-                  <span style="margin-left:3px">{{item.name}}</span>
+                  <span style="margin-left: 3px">{{ item.name }}</span>
                 </div>
-                <div class="title-right">{{item.publish_time2}}</div>
+                <div class="title-right">{{ item.publish_time2 }}</div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="中心动态" name="001002">
               <div
                 class="article-title display"
-                v-for="(item,index) in notice2"
+                v-for="(item, index) in notice2"
                 :key="index"
                 @click="toDetail(item)"
               >
                 <div class="title-left">
                   <span class="red-point"></span>
-                  <span style="margin-left:3px">{{item.name}}</span>
+                  <span style="margin-left: 3px">{{ item.name }}</span>
                 </div>
-                <div class="title-right">{{item.publish_time2}}</div>
+                <div class="title-right">{{ item.publish_time2 }}</div>
               </div>
             </el-tab-pane>
             <el-tab-pane label="政声传递" name="001005">
               <div
                 class="article-title display"
-                v-for="(item,index) in notice3"
+                v-for="(item, index) in notice3"
                 :key="index"
                 @click="toDetail(item)"
               >
                 <div class="title-left">
                   <span class="red-point"></span>
-                  <span style="margin-left:3px">{{item.name}}</span>
+                  <span style="margin-left: 3px">{{ item.name }}</span>
                 </div>
-                <div class="title-right">{{item.publish_time2}}</div>
+                <div class="title-right">{{ item.publish_time2 }}</div>
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -106,12 +110,14 @@
             >
               <div
                 @click="toDetail(item)"
-                v-for="(item,index) in labaData"
+                v-for="(item, index) in labaData"
                 :key="index"
                 class="display align dataOne"
               >
-                <span class="account" v-if="item.target_type">【{{item.target_type}}】</span>
-                <span class="text">{{item.name}}</span>
+                <span class="account" v-if="item.target_type"
+                  >【{{ item.target_type }}】</span
+                >
+                <span class="text">{{ item.name }}</span>
                 <!-- <span class="my-date">{{item.info_time}}</span> -->
               </div>
             </vue-seamless-scroll>
@@ -120,10 +126,10 @@
       </div>
       <div class="new-step2 display">
         <div
-          v-for="(item,index) in login"
+          v-for="(item, index) in login"
           :key="index"
-          @mouseover="loginover(item,index,item.name)"
-          @mouseout="loginout(item,index,item.name)"
+          @mouseover="loginover(item, index, item.name)"
+          @mouseout="loginout(item, index, item.name)"
         >
           <a :href="item.jump" target="_blank">
             <img :src="item.url" alt="登录" />
@@ -172,14 +178,14 @@
         </div>
       </div>-->
       <div class="third-step">
-        <tabs style="margin-top:30px" :data="data1"></tabs>
-        <tabs style="margin-top:30px" :data="data2"></tabs>
-        <tabs style="margin-top:30px" :data="data3"></tabs>
+        <tabs style="margin-top: 30px" :data="data1"></tabs>
+        <tabs style="margin-top: 30px" :data="data2"></tabs>
+        <tabs style="margin-top: 30px" :data="data3"></tabs>
 
-        <tabs style="margin-top:30px" :data="data4"></tabs>
+        <tabs style="margin-top: 30px" :data="data4"></tabs>
       </div>
 
-      <div class="fourth-step" style="margin-top:30px">
+      <div class="fourth-step" style="margin-top: 30px">
         <to-do></to-do>
       </div>
     </div>
@@ -436,7 +442,7 @@ export default {
         query: {
           name: "通知公告",
           index: "5",
-          id: "001002",
+          id: "001003",
         },
       };
       this.$store.commit("add_tabs", params);

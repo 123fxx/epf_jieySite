@@ -115,11 +115,11 @@ export default {
           this.list = [
             {
               path: "/notice",
-              query: { index: 5, id: "001002", name: "通知公告" },
+              query: { index: 5, id: "001003", name: "通知公告" },
             },
             {
               path: "/notice",
-              query: { index: 5, id: "001003", name: "中心动态" },
+              query: { index: 5, id: "001002", name: "中心动态" },
             },
             {
               path: "/notice",
@@ -177,11 +177,11 @@ export default {
           this.list = [
             {
               path: "/notice",
-              query: { index: 5, id: "001002", name: "通知公告" },
+              query: { index: 5, id: "001003", name: "通知公告" },
             },
             {
               path: "/notice",
-              query: { index: 5, id: "001003", name: "中心动态" },
+              query: { index: 5, id: "001002", name: "中心动态" },
             },
             {
               path: "/notice",
