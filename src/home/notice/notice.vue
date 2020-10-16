@@ -271,7 +271,7 @@ export default {
 
 .notice-right {
   margin-left: 20px;
-  width: calc(100% - 200px);
+  width: calc(100% - 205px);
 }
 .page {
   margin: 20px 0;
