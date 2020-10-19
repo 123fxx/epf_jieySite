@@ -131,7 +131,10 @@
           @mouseover="loginover(item, index, item.name)"
           @mouseout="loginout(item, index, item.name)"
         >
-          <a :href="item.jump" target="_blank">
+          <a :href="item.jump" v-if="item.name != 'kaibiao'" target="_blank">
+            <img :src="item.url" alt="登录" />
+          </a>
+          <a v-else href="#" @click="jumpOther(item)">
             <img :src="item.url" alt="登录" />
           </a>
         </div>
@@ -244,7 +247,7 @@ export default {
         {
           name: "kaibiao",
           url: require("@/assets/image/home/kaibiao.png"),
-          jump: "/#/bidOpening",
+          jump: "#",
         },
         {
           name: "user_register",
@@ -383,7 +386,7 @@ export default {
           window.open("https://zjcs.gdggzy.org.cn/gd-zjcs-pub/home");
 
           break;
-        case "近期开标":
+        case "kaibiao":
           let params = {
             path: "/bidOpening",
             name: "近期开标",
