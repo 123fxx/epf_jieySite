@@ -244,7 +244,7 @@ export default {
         {
           name: "kaibiao",
           url: require("@/assets/image/home/kaibiao.png"),
-          jump: "http://192.168.1.175:9096/#/bidOpening",
+          jump: "/#/bidOpening",
         },
         {
           name: "user_register",
@@ -255,7 +255,8 @@ export default {
         {
           name: "user_login",
           url: require("@/assets/image/home/user_login.png"),
-          jump: "http://121.11.160.122:9002/sso/",
+          jump:
+            "http://121.11.160.122:9002/sso/ssosysuser/ssologin.html?netType=0",
         },
         {
           name: "gzry_login",
